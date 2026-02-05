@@ -94,6 +94,17 @@ export default function QrPage() {
         {qrValue ? <QRCodeCanvas value={qrValue} size={220} /> : null}
         {!qrValue ? <p className="small">QR kodu olusturulamadi.</p> : null}
 
+        {qrValue ? (
+          <>
+            <div className="nav" style={{ marginTop: 12 }}>
+              <a className="button" href={qrValue} target="_blank" rel="noreferrer">
+                Formu Ac
+              </a>
+            </div>
+            <p className="small">{qrValue}</p>
+          </>
+        ) : null}
+
         <p className="small" style={{ marginTop: 12 }}>
           QR kodunu okutunca mesaj formu açılır.
         </p>
