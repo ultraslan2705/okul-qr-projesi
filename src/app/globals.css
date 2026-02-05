@@ -194,13 +194,13 @@ textarea.input {
 .hero {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
+  gap: 24px;
   align-items: start;
 }
 
 .hero-content {
   display: grid;
-  gap: 18px;
+  gap: 14px;
   text-align: center;
 }
 
@@ -216,52 +216,52 @@ textarea.input {
 
 .hero-steps {
   display: grid;
-  gap: 12px;
+  gap: 8px;
   text-align: center;
   align-items: center;
 }
 
 .steps-title {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   text-align: center;
   width: 100%;
 }
 
 .steps-grid {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  max-width: 760px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
 .step-card {
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 12px 14px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
   cursor: default;
 }
 
 .step-card strong {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .step-card .small {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .hero-panel {
   display: grid;
-  gap: 14px;
-  max-width: 520px;
+  gap: 12px;
+  max-width: 560px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
   justify-items: center;
-  padding: 32px;
+  padding: 28px;
 }
 
 .hero-actions {
@@ -272,13 +272,18 @@ textarea.input {
 
 .hero-actions .button {
   width: 100%;
-  max-width: 340px;
-  padding: 14px 20px;
-  font-size: 16px;
+  max-width: 420px;
+  padding: 16px 22px;
+  font-size: 17px;
 }
 
 .hero-panel h2 {
-  font-size: 26px;
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.hero-panel .small {
+  margin: 2px 0 6px;
 }
 
 .admin-link {
@@ -370,6 +375,10 @@ h2 {
     text-align: center;
   }
 
+  .hero {
+    gap: 20px;
+  }
+
   .hero-lead {
     margin: 0;
   }
@@ -377,47 +386,47 @@ h2 {
   .hero-steps {
     text-align: left;
     order: 3;
-    max-width: 360px;
+    max-width: 320px;
     margin: 0 auto;
   }
 
   .steps-grid {
     grid-template-columns: 1fr;
     max-width: 100%;
-    gap: 10px;
+    gap: 8px;
   }
 
   .step-card {
-    padding: 12px;
+    padding: 10px 12px;
   }
 
   .hero-panel {
     max-width: 100%;
-    padding: 24px;
+    padding: 20px;
     order: 2;
   }
 
   .hero-actions .button {
     width: 100%;
     max-width: 100%;
-    font-size: 18px;
-    padding: 18px 22px;
+    font-size: 19px;
+    padding: 18px 24px;
   }
 
   .hero-panel h2 {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
   .hero-panel .small {
-    margin-top: 0;
+    margin: 2px 0 6px;
   }
 
   .steps-title {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .step-card strong {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .step-card .small {
