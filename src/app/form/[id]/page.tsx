@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import emailjs from "@emailjs/browser";
 
 type Teacher = {
   id: string;
@@ -34,11 +33,6 @@ export default function FormPage() {
   const [form, setForm] = useState<FormState>(initialForm);
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
-
-  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "";
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "";
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? "";
-  const emailReady = Boolean(serviceId && templateId && publicKey);
 
   useEffect(() => {
     if (!id) {
@@ -73,10 +67,6 @@ export default function FormPage() {
       setStatus("Ogretmen bilgisi yuklenemedi.");
       return;
     }
-    if (!emailReady) {
-      setStatus("E-posta ayarlari eksik. EmailJS bilgilerini kontrol edin.");
-      return;
-    }
     if (!form.studentName.trim() || !form.message.trim()) {
       setStatus("Ad soyad ve mesaj zorunludur.");
       return;
@@ -84,22 +74,26 @@ export default function FormPage() {
 
     setSending(true);
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          teacher_name: `${teacher.name} ${teacher.surname}`,
-          teacher_email: teacher.email,
-          to_email: teacher.email,
-          student_name: form.studentName.trim(),
-          student_class: form.studentClass.trim(),
-          student_phone: form.studentPhone.trim(),
-          message: form.message.trim()
-        },
-        publicKey
-      );
+      const subject = `Mesaj - ${teacher.name} ${teacher.surname}`;
+      const bodyLines = [
+        `Ogretmen: ${teacher.name} ${teacher.surname}`,
+        `Ogretmen e-posta: ${teacher.email}`,
+        "",
+        `Ogrenci ad soyad: ${form.studentName.trim()}`,
+        `Sinif: ${form.studentClass.trim() || "-"}`,
+        `Telefon: ${form.studentPhone.trim() || "-"}`,
+        "",
+        "Mesaj:",
+        form.message.trim()
+      ];
+      const mailto = `mailto:${encodeURIComponent(
+        teacher.email
+      )}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+        bodyLines.join("\n")
+      )}`;
+      window.location.href = mailto;
+      setStatus("E-posta uygulamasi acildi.");
       setForm(initialForm);
-      setStatus("Mesaj gonderildi.");
     } catch (err) {
       console.error(err);
       setStatus("Mesaj gonderilemedi.");
@@ -174,17 +168,12 @@ export default function FormPage() {
               required
             />
           </div>
-          <button className="button" type="submit" disabled={sending || !emailReady}>
+          <button className="button" type="submit" disabled={sending}>
             {sending ? "Gonderiliyor..." : "Gonder"}
           </button>
         </form>
 
         {status ? <p className="small">{status}</p> : null}
-        {!emailReady ? (
-          <p className="small">
-            EmailJS ayarlari eksik. Vercel ortam degiskenlerini kontrol edin.
-          </p>
-        ) : null}
       </div>
     </div>
   );
