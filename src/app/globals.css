@@ -231,35 +231,54 @@ textarea.input {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 .step-card {
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
   cursor: default;
 }
 
 .step-card strong {
   font-weight: 600;
+  font-size: 15px;
+}
+
+.step-card .small {
+  font-size: 13px;
 }
 
 .hero-panel {
   display: grid;
   gap: 14px;
-  max-width: 420px;
+  max-width: 520px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
   justify-items: center;
+  padding: 32px;
 }
 
 .hero-actions {
   display: grid;
   gap: 10px;
   justify-items: center;
+}
+
+.hero-actions .button {
+  width: 100%;
+  max-width: 340px;
+  padding: 14px 20px;
+  font-size: 16px;
+}
+
+.hero-panel h2 {
+  font-size: 26px;
 }
 
 .admin-link {
@@ -361,6 +380,7 @@ h2 {
 
   .steps-grid {
     grid-template-columns: 1fr;
+    max-width: 100%;
   }
 
   .step-card {
@@ -369,10 +389,12 @@ h2 {
 
   .hero-panel {
     max-width: 100%;
+    padding: 24px;
   }
 
   .hero-actions .button {
     width: 100%;
+    max-width: 100%;
   }
 
   .qr-nav {
