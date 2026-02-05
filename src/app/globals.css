@@ -376,25 +376,48 @@ h2 {
 
   .hero-steps {
     text-align: left;
+    order: 3;
+    max-width: 360px;
+    margin: 0 auto;
   }
 
   .steps-grid {
     grid-template-columns: 1fr;
     max-width: 100%;
+    gap: 10px;
   }
 
   .step-card {
-    padding: 16px;
+    padding: 12px;
   }
 
   .hero-panel {
     max-width: 100%;
     padding: 24px;
+    order: 2;
   }
 
   .hero-actions .button {
     width: 100%;
     max-width: 100%;
+    font-size: 17px;
+    padding: 16px 20px;
+  }
+
+  .steps-title {
+    font-size: 18px;
+  }
+
+  .step-card strong {
+    font-size: 14px;
+  }
+
+  .step-card .small {
+    font-size: 12px;
+  }
+
+  .hero-content {
+    order: 1;
   }
 
   .qr-nav {
