@@ -9,7 +9,9 @@ export default async function HomePage() {
       <div className="grid">
         <div>
           <span className="badge">Okul QR Sistemi</span>
-          <h1>{settings.schoolName}</h1>
+          <h1 className="school-title">
+            {settings.schoolName.toLocaleUpperCase("tr-TR")}
+          </h1>
           <p className="small">
             Ogretmen secimi yapin, QR kodu okutun ve mesajinizi kolayca iletin.
           </p>

@@ -241,3 +241,9 @@ h2 {
     padding: 20px;
   }
 }
+
+.school-title {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}

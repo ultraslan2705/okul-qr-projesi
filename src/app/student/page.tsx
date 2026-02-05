@@ -15,7 +15,9 @@ export default async function StudentPage() {
         </Link>
       </div>
       <div className="card">
-        <h1>{settings.schoolName}</h1>
+        <h1 className="school-title">
+          {settings.schoolName.toLocaleUpperCase("tr-TR")}
+        </h1>
         <p className="small">Mesaj gondermek istediginiz ogretmeni secin.</p>
         <div className="list">
           {teachers.map((teacher) => (
