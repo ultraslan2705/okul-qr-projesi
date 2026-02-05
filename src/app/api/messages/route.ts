@@ -12,6 +12,9 @@ type MessagePayload = {
   message?: string;
 };
 
+const classPattern = /^(?:[1-9]|1[0-2])(?:[\s-])?[A-Za-zÇĞİÖŞÜçğıöşü]$/;
+const phonePattern = /^05\d{9}$/;
+
 export async function POST(request: Request) {
   const payload = (await request.json().catch(() => null)) as MessagePayload | null;
 
@@ -22,11 +25,23 @@ export async function POST(request: Request) {
   const teacherId = payload.teacherId?.trim();
   const studentName = payload.studentName?.trim();
   const studentClass = payload.studentClass?.trim() ?? "";
-  const studentPhone = payload.studentPhone?.trim() ?? "";
+  const studentPhoneRaw = payload.studentPhone?.trim() ?? "";
   const message = payload.message?.trim();
 
   if (!teacherId || !studentName || !message) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  }
+
+  if (studentClass && !classPattern.test(studentClass)) {
+    return NextResponse.json({ error: "Sınıf formatı hatalı. Örn: 10-A" }, { status: 400 });
+  }
+
+  const studentPhone = studentPhoneRaw.replace(/\D/g, "");
+  if (studentPhone && !phonePattern.test(studentPhone)) {
+    return NextResponse.json(
+      { error: "Telefon 05 ile başlamalı ve 11 haneli olmalı." },
+      { status: 400 }
+    );
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

@@ -18,6 +18,9 @@ type FormState = {
   message: string;
 };
 
+const classPattern = /^(?:[1-9]|1[0-2])(?:[\s-])?[A-Za-zÇĞİÖŞÜçğıöşü]$/;
+const phonePattern = /^05\d{9}$/;
+
 const initialForm: FormState = {
   studentName: "",
   studentClass: "",
@@ -72,6 +75,18 @@ export default function FormPage() {
       return;
     }
 
+    const trimmedClass = form.studentClass.trim();
+    if (trimmedClass && !classPattern.test(trimmedClass)) {
+      setStatus("Sınıf formatı hatalı. Örn: 10-A");
+      return;
+    }
+
+    const normalizedPhone = form.studentPhone.replace(/\D/g, "");
+    if (normalizedPhone && !phonePattern.test(normalizedPhone)) {
+      setStatus("Telefon 05 ile başlamalı ve 11 haneli olmalı.");
+      return;
+    }
+
     setSending(true);
     try {
       const response = await fetch("/api/messages", {
@@ -80,8 +95,8 @@ export default function FormPage() {
         body: JSON.stringify({
           teacherId: teacher.id,
           studentName: form.studentName.trim(),
-          studentClass: form.studentClass.trim(),
-          studentPhone: form.studentPhone.trim(),
+          studentClass: trimmedClass,
+          studentPhone: normalizedPhone,
           message: form.message.trim()
         })
       });
@@ -144,6 +159,9 @@ export default function FormPage() {
                 setForm((prev) => ({ ...prev, studentClass: event.target.value }))
               }
               placeholder="Örn: 10-A"
+              maxLength={4}
+              pattern="^(?:[1-9]|1[0-2])(?:[\\s-])?[A-Za-zÇĞİÖŞÜçğıöşü]$"
+              title="Örn: 10-A"
             />
           </div>
           <div className="field">
@@ -152,9 +170,16 @@ export default function FormPage() {
               className="input"
               value={form.studentPhone}
               onChange={(event) =>
-                setForm((prev) => ({ ...prev, studentPhone: event.target.value }))
+                setForm((prev) => ({
+                  ...prev,
+                  studentPhone: event.target.value.replace(/\D/g, "").slice(0, 11)
+                }))
               }
               placeholder="05xx xxx xx xx"
+              inputMode="numeric"
+              maxLength={11}
+              pattern="05\\d{9}"
+              title="05 ile başlayan 11 haneli numara"
             />
           </div>
           <div className="field">
