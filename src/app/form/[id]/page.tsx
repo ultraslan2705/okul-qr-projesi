@@ -74,29 +74,30 @@ export default function FormPage() {
 
     setSending(true);
     try {
-      const subject = `Mesaj - ${teacher.name} ${teacher.surname}`;
-      const bodyLines = [
-        `Ogretmen: ${teacher.name} ${teacher.surname}`,
-        `Ogretmen e-posta: ${teacher.email}`,
-        "",
-        `Ogrenci ad soyad: ${form.studentName.trim()}`,
-        `Sinif: ${form.studentClass.trim() || "-"}`,
-        `Telefon: ${form.studentPhone.trim() || "-"}`,
-        "",
-        "Mesaj:",
-        form.message.trim()
-      ];
-      const mailto = `mailto:${encodeURIComponent(
-        teacher.email
-      )}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        bodyLines.join("\n")
-      )}`;
-      window.location.href = mailto;
-      setStatus("E-posta uygulamasi acildi.");
+      const response = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          teacherId: teacher.id,
+          studentName: form.studentName.trim(),
+          studentClass: form.studentClass.trim(),
+          studentPhone: form.studentPhone.trim(),
+          message: form.message.trim()
+        })
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        const message =
+          body?.error || body?.details || body?.hint || "Mesaj gonderilemedi.";
+        throw new Error(message);
+      }
+
       setForm(initialForm);
+      setStatus("Mesaj gonderildi.");
     } catch (err) {
       console.error(err);
-      setStatus("Mesaj gonderilemedi.");
+      setStatus(err instanceof Error ? err.message : "Mesaj gonderilemedi.");
     } finally {
       setSending(false);
     }
