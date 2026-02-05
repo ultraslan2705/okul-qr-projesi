@@ -18,7 +18,7 @@ export async function POST() {
   const { error: teachersError } = await supabase
     .from("teachers")
     .delete()
-    .neq("id", "");
+    .not("id", "is", null);
 
   if (teachersError) {
     return NextResponse.json(
@@ -30,7 +30,7 @@ export async function POST() {
   const { error: settingsError } = await supabase
     .from("settings")
     .delete()
-    .neq("id", 0);
+    .not("id", "is", null);
 
   if (settingsError) {
     return NextResponse.json(

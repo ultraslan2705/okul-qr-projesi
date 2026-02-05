@@ -147,7 +147,9 @@ export default function AdminPanelPage() {
       const response = await fetch("/api/reset", { method: "POST" });
       if (!response.ok) {
         const body = await response.json().catch(() => null);
-        const message = body?.error || body?.details || "Sistem sıfırlanamadı.";
+        const message = body?.details
+          ? `${body?.error ?? "Sistem sıfırlanamadı."} (${body.details})`
+          : body?.error || "Sistem sıfırlanamadı.";
         setStatus(message);
         return;
       }
