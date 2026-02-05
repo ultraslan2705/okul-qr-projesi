@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getTeachers } from "@/lib/teachers";
 import { getSettings } from "@/lib/settings";
 
+export const dynamic = "force-dynamic";
+
 export default async function StudentPage() {
   const [settings, teachers] = await Promise.all([getSettings(), getTeachers()]);
 
