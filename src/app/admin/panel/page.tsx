@@ -109,7 +109,9 @@ export default function AdminPanelPage() {
     setStatus("");
 
     try {
-      const response = await fetch(`/api/teachers/${id}`, { method: "DELETE" });
+      const response = await fetch(`/api/teachers?id=${encodeURIComponent(id)}`, {
+        method: "DELETE"
+      });
       if (!response.ok) {
         const body = await response.json().catch(() => null);
         console.error("DELETE_TEACHER_FAILED", { status: response.status, body });

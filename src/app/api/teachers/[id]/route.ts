@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-export async function DELETE(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
+type RouteContext = {
+  params: {
+    id?: string;
+  };
+};
+
+export async function DELETE(_request: Request, context: RouteContext) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -12,7 +15,9 @@ export async function DELETE(
     return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
   }
 
-  if (!params?.id) {
+  const id = context.params?.id;
+
+  if (!id) {
     return NextResponse.json({ error: "Missing id" }, { status: 400 });
   }
 
@@ -20,7 +25,7 @@ export async function DELETE(
     auth: { persistSession: false }
   });
 
-  const { error } = await supabase.from("teachers").delete().eq("id", params.id);
+  const { error } = await supabase.from("teachers").delete().eq("id", id);
 
   if (error) {
     console.error("SUPABASE_DELETE_ERROR", error);
