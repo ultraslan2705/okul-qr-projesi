@@ -190,6 +190,63 @@ textarea.input {
   flex-wrap: wrap;
 }
 
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+  gap: 28px;
+  align-items: center;
+}
+
+.hero-content {
+  display: grid;
+  gap: 18px;
+  text-align: center;
+}
+
+.hero-lead {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.hero-steps {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.step-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.step-card strong {
+  font-weight: 600;
+}
+
+.hero-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.hero-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-link {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.admin-link:hover {
+  color: var(--primary);
+}
+
 h1,
 h2,
 h3 {
@@ -239,6 +296,18 @@ h2 {
 
   .card {
     padding: 20px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    text-align: left;
+  }
+
+  .hero-lead {
+    margin: 0;
   }
 }
 

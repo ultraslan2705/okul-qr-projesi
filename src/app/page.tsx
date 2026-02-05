@@ -5,23 +5,42 @@ export default async function HomePage() {
   const settings = await getSettings();
 
   return (
-    <div className="card">
-      <div className="grid">
-        <div>
-          <span className="badge">Okul QR Sistemi</span>
-          <h1 className="school-title">
-            {settings.schoolName.toLocaleUpperCase("tr-TR")}
-          </h1>
-          <p className="small">
-            Ogretmen secimi yapin, QR kodu okutun ve mesajinizi kolayca iletin.
-          </p>
+    <div className="hero">
+      <div className="hero-content">
+        <span className="badge">Okul QR Sistemi</span>
+        <h1 className="school-title">
+          {settings.schoolName.toLocaleUpperCase("tr-TR")}
+        </h1>
+        <p className="small hero-lead">
+          Ogretmen secimi yapin, QR kodu okutun ve mesajinizi kolayca iletin.
+        </p>
+        <div className="hero-steps">
+          <div className="step-card">
+            <strong>1. Ogretmen Sec</strong>
+            <p className="small">Listeden ogretmeni secin.</p>
+          </div>
+          <div className="step-card">
+            <strong>2. QR Okut</strong>
+            <p className="small">QR kodu telefonla okutun.</p>
+          </div>
+          <div className="step-card">
+            <strong>3. Mesaj Gonder</strong>
+            <p className="small">Formu doldurup iletin.</p>
+          </div>
         </div>
-        <div className="grid two">
-          <Link className="button" href="/admin/login">
-            Admin Login
-          </Link>
-          <Link className="button secondary" href="/student">
+      </div>
+
+      <div className="card hero-panel">
+        <h2>Giris</h2>
+        <p className="small">
+          Ogrenciler icin hizli giris, yoneticiler icin ayar paneli.
+        </p>
+        <div className="hero-actions">
+          <Link className="button" href="/student">
             Student Login
+          </Link>
+          <Link className="admin-link" href="/admin/login">
+            Admin Login
           </Link>
         </div>
       </div>
